@@ -9,4 +9,5 @@ export declare class BigCategoryService {
     findOne(id: number): Promise<any>;
     update(id: number, updateBigCategoryDto: UpdateBigCategoryDto): Promise<any>;
     remove(id: number): Promise<any>;
+    findBigCategoryByName(name: string): Promise<BigCategory>;
 }

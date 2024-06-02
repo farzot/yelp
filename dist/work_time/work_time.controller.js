@@ -19,7 +19,6 @@ const create_work_time_dto_1 = require("./dto/create-work_time.dto");
 const update_work_time_dto_1 = require("./dto/update-work_time.dto");
 const swagger_1 = require("@nestjs/swagger");
 const work_time_model_1 = require("./models/work_time.model");
-const admin_auth_guard_1 = require("../common/guards/admin-auth.guard");
 let WorkTimeController = class WorkTimeController {
     constructor(workTimeService) {
         this.workTimeService = workTimeService;
@@ -67,7 +66,6 @@ let WorkTimeController = class WorkTimeController {
 };
 exports.WorkTimeController = WorkTimeController;
 __decorate([
-    (0, common_1.UseGuards)(admin_auth_guard_1.JwtAdminGuard),
     (0, swagger_1.ApiOperation)({ summary: 'Create a new work-time' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: work_time_model_1.WorkTime }),
     (0, common_1.Post)(),
@@ -85,7 +83,6 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], WorkTimeController.prototype, "findAllWorkTime", null);
 __decorate([
-    (0, common_1.UseGuards)(admin_auth_guard_1.JwtAdminGuard),
     (0, swagger_1.ApiOperation)({ summary: 'Get work-time by id' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: work_time_model_1.WorkTime }),
     (0, common_1.Get)(':id'),
@@ -95,7 +92,6 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], WorkTimeController.prototype, "findOneWorkTime", null);
 __decorate([
-    (0, common_1.UseGuards)(admin_auth_guard_1.JwtAdminGuard),
     (0, swagger_1.ApiOperation)({ summary: 'Update work-time by id' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: work_time_model_1.WorkTime }),
     (0, common_1.Patch)(':id'),
@@ -106,7 +102,6 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], WorkTimeController.prototype, "updateWorkTime", null);
 __decorate([
-    (0, common_1.UseGuards)(admin_auth_guard_1.JwtAdminGuard),
     (0, swagger_1.ApiOperation)({ summary: 'Delete work-time by id' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: Number }),
     (0, common_1.Delete)(':id'),

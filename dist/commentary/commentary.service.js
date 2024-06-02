@@ -16,13 +16,19 @@ exports.CommentaryService = void 0;
 const common_1 = require("@nestjs/common");
 const sequelize_1 = require("@nestjs/sequelize");
 const commentary_model_1 = require("./models/commentary.model");
+const business_service_1 = require("../business/business.service");
 let CommentaryService = class CommentaryService {
-    constructor(commentRepo) {
+    constructor(commentRepo, businessService) {
         this.commentRepo = commentRepo;
+        this.businessService = businessService;
     }
     async create(createCommentaryDto) {
         try {
-            return await this.commentRepo.create(createCommentaryDto);
+            const comment = await this.commentRepo.create(createCommentaryDto);
+            const business = await this.businessService.findOne(createCommentaryDto.business_id);
+            business.reviews += 1;
+            await business.save();
+            return comment;
         }
         catch (error) {
             throw error.message;
@@ -50,7 +56,10 @@ let CommentaryService = class CommentaryService {
             if (!check) {
                 throw new common_1.NotFoundException('Comment not found');
             }
-            return await this.commentRepo.update(updateCommentaryDto, { where: { id: id }, returning: true });
+            return await this.commentRepo.update(updateCommentaryDto, {
+                where: { id: id },
+                returning: true,
+            });
         }
         catch (error) {
             throw error.message;
@@ -70,11 +79,22 @@ let CommentaryService = class CommentaryService {
             throw error.message;
         }
     }
+    async increaseLike(id) {
+        try {
+            const comment = await this.commentRepo.findByPk(id);
+            comment.commentary_likes += 1;
+            await comment.save();
+            return comment;
+        }
+        catch (error) {
+            throw error.message;
+        }
+    }
 };
 exports.CommentaryService = CommentaryService;
 exports.CommentaryService = CommentaryService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, sequelize_1.InjectModel)(commentary_model_1.Commentary)),
-    __metadata("design:paramtypes", [Object])
+    __metadata("design:paramtypes", [Object, business_service_1.BusinessService])
 ], CommentaryService);
 //# sourceMappingURL=commentary.service.js.map

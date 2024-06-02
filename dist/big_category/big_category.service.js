@@ -71,6 +71,16 @@ let BigCategoryService = class BigCategoryService {
             return error.message;
         }
     }
+    async findBigCategoryByName(name) {
+        try {
+            return await this.categoryRepo.findOne({
+                where: { name: name },
+            });
+        }
+        catch (error) {
+            throw error.message;
+        }
+    }
 };
 exports.BigCategoryService = BigCategoryService;
 exports.BigCategoryService = BigCategoryService = __decorate([

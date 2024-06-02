@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+  Query,
+} from '@nestjs/common';
 import { BigCategoryService } from './big_category.service';
 import { CreateBigCategoryDto } from './dto/create-big_category.dto';
 import { UpdateBigCategoryDto } from './dto/update-big_category.dto';
@@ -42,6 +52,20 @@ export class BigCategoryController {
   async findOneBigCategory(@Param('id') id: string) {
     try {
       return await this.bigCategoryService.findOne(+id);
+    } catch (error) {
+      return error.message;
+    }
+  }
+
+  // @UseGuards(JwtAdminGuard)
+  @ApiOperation({ summary: 'Get one Big Category by name' })
+  @ApiResponse({ status: 200, type: BigCategory })
+  @Get(':/name')
+  async findBigCategoryByName(
+    @Query('name') name: string,
+  ): Promise<BigCategory> {
+    try {
+      return await this.bigCategoryService.findBigCategoryByName(name);
     } catch (error) {
       return error.message;
     }

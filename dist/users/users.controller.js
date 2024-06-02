@@ -23,6 +23,8 @@ const login_user_dto_1 = require("./dto/login-user.dto");
 const cookie_getter_decorator_1 = require("../common/decorators/cookie_getter.decorator");
 const user_guard_1 = require("../common/guards/user.guard");
 const find_user_dto_1 = require("./dto/find-user.dto");
+const business_model_1 = require("../business/models/business.model");
+const create_business_dto_1 = require("../business/dto/create-business.dto");
 let UsersController = class UsersController {
     constructor(usersService) {
         this.usersService = usersService;
@@ -56,6 +58,9 @@ let UsersController = class UsersController {
     }
     remove(id) {
         return this.usersService.removeUser(+id);
+    }
+    addBusiness(createBusinessDto, res, id) {
+        return this.usersService.addBusiness(+id, createBusinessDto, res);
     }
 };
 exports.UsersController = UsersController;
@@ -136,7 +141,7 @@ __decorate([
         summary: 'Get client by full_name, email, phone, social_media',
     }),
     (0, swagger_1.ApiResponse)({ status: 200, type: user_model_1.User }),
-    (0, common_1.Post)('find'),
+    (0, common_1.Get)('find'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [find_user_dto_1.FindUserDto]),
@@ -162,6 +167,17 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "remove", null);
+__decorate([
+    (0, swagger_1.ApiOperation)({ summary: 'Add new Business by User' }),
+    (0, swagger_1.ApiResponse)({ status: 200, type: business_model_1.Business }),
+    (0, common_1.Post)(':id/addBusiness'),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Res)({ passthrough: true })),
+    __param(2, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [create_business_dto_1.CreateBusinessDto, Object, String]),
+    __metadata("design:returntype", void 0)
+], UsersController.prototype, "addBusiness", null);
 exports.UsersController = UsersController = __decorate([
     (0, swagger_1.ApiTags)('Client'),
     (0, common_1.Controller)('client'),

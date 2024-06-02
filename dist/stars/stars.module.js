@@ -7,18 +7,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StarsModule = void 0;
-const common_1 = require("@nestjs/common");
-const stars_service_1 = require("./stars.service");
 const stars_controller_1 = require("./stars.controller");
 const sequelize_1 = require("@nestjs/sequelize");
 const star_model_1 = require("./models/star.model");
 const jwt_1 = require("@nestjs/jwt");
+const business_module_1 = require("../business/business.module");
+const common_1 = require("@nestjs/common");
+const stars_service_1 = require("./stars.service");
+const business_model_1 = require("../business/models/business.model");
 let StarsModule = class StarsModule {
 };
 exports.StarsModule = StarsModule;
 exports.StarsModule = StarsModule = __decorate([
     (0, common_1.Module)({
-        imports: [sequelize_1.SequelizeModule.forFeature([star_model_1.Star])],
+        imports: [sequelize_1.SequelizeModule.forFeature([star_model_1.Stars, business_model_1.Business]), jwt_1.JwtModule, business_module_1.BusinessModule],
         controllers: [stars_controller_1.StarsController],
         providers: [stars_service_1.StarsService, jwt_1.JwtService],
     })

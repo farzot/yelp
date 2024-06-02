@@ -1,4 +1,3 @@
-
 import { ApiProperty } from '@nestjs/swagger';
 import {
   AllowNull,
@@ -11,10 +10,11 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { Order } from '../../order/models/order.model';
-import { Star } from '../../stars/models/star.model';
-import { ProductOrService } from '../../product_or_service/models/product_or_service.model';
+import { Stars } from '../../stars/models/star.model';
 import { Commentary } from '../../commentary/models/commentary.model';
 import { Address } from '../../address/model/address.model';
+import { Business } from '../../business/models/business.model';
+import { Cart } from '../../cart/model/cart.model';
 
 interface IClientCreationAttr {
   full_name: string;
@@ -23,7 +23,7 @@ interface IClientCreationAttr {
   password: string;
   confirm_password: string;
   social_media: string;
-  card: string;
+  card_number: string;
   hashed_refresh_token: string;
   is_businessman: boolean;
   address_id: number;
@@ -99,7 +99,7 @@ export class User extends Model<User, IClientCreationAttr> {
     type: DataType.STRING,
     // allowNull: false,
   })
-  card: string;
+  card_number: string;
 
   @ApiProperty({
     example: '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
@@ -152,6 +152,12 @@ export class User extends Model<User, IClientCreationAttr> {
   @HasMany(() => Commentary)
   commentray: Commentary[];
 
-  @HasMany(() => Star)
-  star: Star[];
+  @HasMany(() => Stars)
+  star: Stars[];
+
+  // @HasMany(() => Business)
+  // workTime: Business[];
+
+  @HasMany(() => Cart)
+  cart: Cart[];
 }

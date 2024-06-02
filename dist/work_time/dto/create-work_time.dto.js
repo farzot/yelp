@@ -17,8 +17,29 @@ exports.CreateWorkTimeDto = CreateWorkTimeDto;
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsIn)([
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+        'Sunday',
+    ]),
     __metadata("design:type", String)
 ], CreateWorkTimeDto.prototype, "Day", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Matches)(/^([01]\d|2[0-3]):([0-5]\d)$/),
+    __metadata("design:type", String)
+], CreateWorkTimeDto.prototype, "open_time", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.Matches)(/^([01]\d|2[0-3]):([0-5]\d)$/),
+    __metadata("design:type", String)
+], CreateWorkTimeDto.prototype, "close_time", void 0);
 __decorate([
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.IsNotEmpty)(),

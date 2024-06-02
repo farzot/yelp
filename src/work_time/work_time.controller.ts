@@ -20,7 +20,7 @@ import { JwtAdminGuard } from '../common/guards/admin-auth.guard';
 export class WorkTimeController {
   constructor(private readonly workTimeService: WorkTimeService) {}
 
-  @UseGuards(JwtAdminGuard)
+  // @UseGuards(JwtAdminGuard)
   @ApiOperation({ summary: 'Create a new work-time' })
   @ApiResponse({ status: 200, type: WorkTime })
   @Post()
@@ -44,7 +44,7 @@ export class WorkTimeController {
     }
   }
 
-  @UseGuards(JwtAdminGuard)
+  // @UseGuards(JwtAdminGuard)
   @ApiOperation({ summary: 'Get work-time by id' })
   @ApiResponse({ status: 200, type: WorkTime })
   @Get(':id')
@@ -56,7 +56,7 @@ export class WorkTimeController {
     }
   }
 
-  @UseGuards(JwtAdminGuard)
+  // @UseGuards(JwtAdminGuard)
   @ApiOperation({ summary: 'Update work-time by id' })
   @ApiResponse({ status: 200, type: WorkTime })
   @Patch(':id')
@@ -71,7 +71,7 @@ export class WorkTimeController {
     }
   }
 
-  @UseGuards(JwtAdminGuard)
+  // @UseGuards(JwtAdminGuard)
   @ApiOperation({ summary: 'Delete work-time by id' })
   @ApiResponse({ status: 200, type: Number })
   @Delete(':id')

@@ -9,4 +9,5 @@ export declare class WorkTimeService {
     findOne(id: number): Promise<WorkTime>;
     update(id: number, updateWorkTimeDto: UpdateWorkTimeDto): Promise<[affectedCount: number, affectedRows: WorkTime[]]>;
     remove(id: number): Promise<number>;
+    findOneByBusinesID(id: number): Promise<WorkTime>;
 }

@@ -9,6 +9,7 @@ import {
   Res,
   HttpCode,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -21,6 +22,8 @@ import { Cookiegetter } from '../common/decorators/cookie_getter.decorator';
 import { UserGuard } from '../common/guards/user.guard';
 import { FindUserDto } from './dto/find-user.dto';
 import { JwtAdminGuard } from '../common/guards/admin-auth.guard';
+import { Business } from '../business/models/business.model';
+import { CreateBusinessDto } from '../business/dto/create-business.dto';
 
 
 
@@ -104,7 +107,7 @@ export class UsersController {
     summary: 'Get client by full_name, email, phone, social_media',
   })
   @ApiResponse({ status: 200, type: User })
-  @Post('find')
+  @Get('find')
   findUser(@Body() finduserDto: FindUserDto) {
     return this.usersService.findUser(finduserDto);
   }
@@ -125,5 +128,16 @@ export class UsersController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.usersService.removeUser(+id);
+  }
+
+  @ApiOperation({ summary: 'Add new Business by User' })
+  @ApiResponse({ status: 200, type: Business })
+  @Post(':id/addBusiness')
+  addBusiness(
+    @Body() createBusinessDto: CreateBusinessDto,
+    @Res({ passthrough: true }) res: Response,
+    @Param('id') id: string,
+  ) {
+    return this.usersService.addBusiness(+id,createBusinessDto, res);
   }
 }

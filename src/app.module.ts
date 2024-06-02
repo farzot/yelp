@@ -12,7 +12,6 @@ import { SmallCategoryModule } from './small_category/small_category.module';
 import { BigCategoryModule } from './big_category/big_category.module';
 import { BusinessModule } from './business/business.module';
 import { WorkTimeModule } from './work_time/work_time.module';
-import { OwnerModule } from './owner/owner.module';
 import { OrderModule } from './order/order.module';
 import { CommentaryModule } from './commentary/commentary.module';
 import { StarsModule } from './stars/stars.module';
@@ -22,20 +21,31 @@ import { BigCategory } from './big_category/models/big_category.model';
 import { Business } from './business/models/business.model';
 import { Commentary } from './commentary/models/commentary.model';
 import { Order } from './order/models/order.model';
-import { Owner } from './owner/models/owner.model';
 import { SmallCategory } from './small_category/models/small_category.model';
-import { Star } from './stars/models/star.model';
+import { Stars } from './stars/models/star.model';
 import { WorkTime } from './work_time/models/work_time.model';
-import { OrderDetailModule } from './order_detail/order_detail.module';
-import { OrderDetail } from './order_detail/models/order_detail.model';
 import { ProductOrServiceModule } from './product_or_service/product_or_service.module';
 import { ProductOrService } from './product_or_service/models/product_or_service.model';
 import { UsersModule } from './users/user.module';
 import { User } from './users/models/user.model';
 import { Admin } from './admin/models/admin.model';
 import { AdminModule } from './admin/admin.module';
-
-
+import { BusinessImagesModule } from './business_images/business_images.module';
+import { BusinessImage } from './business_images/model/business_image.model';
+import { OrderDriverModule } from './order_driver/order_driver.module';
+import { DriverModule } from './driver/driver.module';
+import { DriverCarModule } from './driver_car/driver_car.module';
+import { DriverCarImageModule } from './driver_car_image/driver_car_image.module';
+import { CartModule } from './cart/cart.module';
+import { Cart } from './cart/model/cart.model';
+import { Driver } from './driver/model/driver.model';
+import { DriverCar } from './driver_car/model/driver_car.model';
+import { DriverCarImage } from './driver_car_image/model/driver_car_image.model';
+import { OrderDriver } from './order_driver/model/order_driver.model';
+import { CartItemsModule } from './cart_items/cart_items.module';
+import { OrderItemsModule } from './order_items/order_items.module';
+import { CartItem } from './cart_items/model/cart_item.model';
+import { OrderItem } from './order_items/model/order_item.model';
 
 @Module({
   imports: [
@@ -47,7 +57,27 @@ import { AdminModule } from './admin/admin.module';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      models: [Admin, Address, BigCategory, Business, User, Commentary, Order, OrderDetail, Owner, SmallCategory, Star, WorkTime, ProductOrService],
+      models: [
+        Admin,
+        Address,
+        BigCategory,
+        Business,
+        BusinessImage,
+        Cart,
+        CartItem,
+        Commentary,
+        Driver,
+        DriverCar,
+        DriverCarImage,
+        Order,
+        OrderItem,
+        OrderDriver,
+        ProductOrService,
+        SmallCategory,
+        Stars,
+        User,
+        WorkTime,
+      ],
       autoLoadModels: true,
       sync: { alter: true },
       logging: false,
@@ -67,15 +97,21 @@ import { AdminModule } from './admin/admin.module';
     BigCategoryModule,
     BusinessModule,
     WorkTimeModule,
-    OwnerModule,
     OrderModule,
     CommentaryModule,
     StarsModule,
     UsersModule,
-    OrderDetailModule,
     AddressModule,
     ProductOrServiceModule,
-    AdminModule
+    AdminModule,
+    BusinessImagesModule,
+    CartModule,
+    OrderDriverModule,
+    DriverModule,
+    DriverCarModule,
+    DriverCarImageModule,
+    CartItemsModule,
+    OrderItemsModule,
   ],
   controllers: [],
   providers: [],

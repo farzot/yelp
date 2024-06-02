@@ -19,7 +19,6 @@ const create_product_or_service_dto_1 = require("./dto/create-product_or_service
 const update_product_or_service_dto_1 = require("./dto/update-product_or_service.dto");
 const swagger_1 = require("@nestjs/swagger");
 const product_or_service_model_1 = require("./models/product_or_service.model");
-const admin_auth_guard_1 = require("../common/guards/admin-auth.guard");
 let ProductOrServiceController = class ProductOrServiceController {
     constructor(productOrServiceService) {
         this.productOrServiceService = productOrServiceService;
@@ -48,6 +47,22 @@ let ProductOrServiceController = class ProductOrServiceController {
             throw error;
         }
     }
+    async findProductByName(name) {
+        try {
+            return this.productOrServiceService.findProductByName(name);
+        }
+        catch (error) {
+            throw error;
+        }
+    }
+    async mostSelling(name) {
+        try {
+            return this.productOrServiceService.findProductByAmountSelling();
+        }
+        catch (error) {
+            throw error;
+        }
+    }
     async updateProduct(id, updateProductOrServiceDto) {
         try {
             return this.productOrServiceService.update(+id, updateProductOrServiceDto);
@@ -67,7 +82,6 @@ let ProductOrServiceController = class ProductOrServiceController {
 };
 exports.ProductOrServiceController = ProductOrServiceController;
 __decorate([
-    (0, common_1.UseGuards)(admin_auth_guard_1.JwtAdminGuard),
     (0, swagger_1.ApiOperation)({ summary: 'Create a new product' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: product_or_service_model_1.ProductOrService }),
     (0, common_1.Post)(),
@@ -85,7 +99,6 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ProductOrServiceController.prototype, "findAllProduct", null);
 __decorate([
-    (0, common_1.UseGuards)(admin_auth_guard_1.JwtAdminGuard),
     (0, swagger_1.ApiOperation)({ summary: 'Get product by id' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: product_or_service_model_1.ProductOrService }),
     (0, common_1.Get)(':id'),
@@ -95,7 +108,24 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ProductOrServiceController.prototype, "findOneProduct", null);
 __decorate([
-    (0, common_1.UseGuards)(admin_auth_guard_1.JwtAdminGuard),
+    (0, swagger_1.ApiOperation)({ summary: 'Get product by name' }),
+    (0, swagger_1.ApiResponse)({ status: 200, type: product_or_service_model_1.ProductOrService }),
+    (0, common_1.Get)(':name'),
+    __param(0, (0, common_1.Param)('name')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], ProductOrServiceController.prototype, "findProductByName", null);
+__decorate([
+    (0, swagger_1.ApiOperation)({ summary: 'Get products by most selling' }),
+    (0, swagger_1.ApiResponse)({ status: 200, type: [product_or_service_model_1.ProductOrService] }),
+    (0, common_1.Get)(':trends/product'),
+    __param(0, (0, common_1.Param)('name')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], ProductOrServiceController.prototype, "mostSelling", null);
+__decorate([
     (0, swagger_1.ApiOperation)({ summary: 'Update product by id' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: product_or_service_model_1.ProductOrService }),
     (0, common_1.Patch)(':id'),
@@ -106,7 +136,6 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ProductOrServiceController.prototype, "updateProduct", null);
 __decorate([
-    (0, common_1.UseGuards)(admin_auth_guard_1.JwtAdminGuard),
     (0, swagger_1.ApiOperation)({ summary: 'Delete product by id' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: Number }),
     (0, common_1.Delete)(':id'),

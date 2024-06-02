@@ -13,9 +13,16 @@ exports.Order = void 0;
 const swagger_1 = require("@nestjs/swagger");
 const sequelize_typescript_1 = require("sequelize-typescript");
 const business_model_1 = require("../../business/models/business.model");
-const order_detail_model_1 = require("../../order_detail/models/order_detail.model");
 const user_model_1 = require("../../users/models/user.model");
+const order_driver_model_1 = require("../../order_driver/model/order_driver.model");
+const order_item_model_1 = require("../../order_items/model/order_item.model");
+const cart_model_1 = require("../../cart/model/cart.model");
 let Order = class Order extends sequelize_typescript_1.Model {
+    async recalculateTotalPrice() {
+        const orderItems = await this.$get('orderItems');
+        const totalPrice = orderItems.reduce((sum, item) => sum + item.totalPrice, 0);
+        await this.update({ totalPrice });
+    }
 };
 exports.Order = Order;
 __decorate([
@@ -28,10 +35,26 @@ __decorate([
     __metadata("design:type", Number)
 ], Order.prototype, "id", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 1, description: 'Total price' }),
+    (0, swagger_1.ApiProperty)({ example: 16000, description: 'Total_priceOf_products' }),
     (0, sequelize_typescript_1.Column)({
-        type: sequelize_typescript_1.DataType.INTEGER,
-        defaultValue: 0
+        type: sequelize_typescript_1.DataType.FLOAT,
+        defaultValue: 0,
+    }),
+    __metadata("design:type", Number)
+], Order.prototype, "totalPrice", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: 1500, description: 'Shipping price' }),
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.FLOAT,
+        defaultValue: 7000,
+    }),
+    __metadata("design:type", Number)
+], Order.prototype, "shipping_price", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: 1500, description: 'Total price' }),
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.FLOAT,
+        defaultValue: 0,
     }),
     __metadata("design:type", Number)
 ], Order.prototype, "total_price", void 0);
@@ -60,9 +83,50 @@ __decorate([
     __metadata("design:type", business_model_1.Business)
 ], Order.prototype, "business", void 0);
 __decorate([
-    (0, sequelize_typescript_1.HasMany)(() => order_detail_model_1.OrderDetail),
+    (0, swagger_1.ApiProperty)({ example: 1, description: 'Cart ID' }),
+    (0, sequelize_typescript_1.ForeignKey)(() => cart_model_1.Cart),
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.INTEGER,
+    }),
+    __metadata("design:type", Number)
+], Order.prototype, "cart_id", void 0);
+__decorate([
+    (0, sequelize_typescript_1.BelongsTo)(() => cart_model_1.Cart),
+    __metadata("design:type", cart_model_1.Cart)
+], Order.prototype, "cart", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: 'Cash', description: 'Payment type' }),
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.STRING,
+    }),
+    __metadata("design:type", String)
+], Order.prototype, "payment_type", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: 'Online', description: 'Status' }),
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.ENUM('pending', 'processing', 'shipped', 'delivered', 'cancelled', 'refunded'),
+        defaultValue: 'pending',
+    }),
+    __metadata("design:type", String)
+], Order.prototype, "status", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        example: 'Please deliver as soon as possible!',
+        description: 'Comment of order',
+    }),
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.STRING,
+    }),
+    __metadata("design:type", String)
+], Order.prototype, "comment", void 0);
+__decorate([
+    (0, sequelize_typescript_1.HasOne)(() => order_driver_model_1.OrderDriver),
+    __metadata("design:type", order_driver_model_1.OrderDriver)
+], Order.prototype, "order_driver", void 0);
+__decorate([
+    (0, sequelize_typescript_1.HasMany)(() => order_item_model_1.OrderItem),
     __metadata("design:type", Array)
-], Order.prototype, "orderDetail", void 0);
+], Order.prototype, "orderItems", void 0);
 exports.Order = Order = __decorate([
     (0, sequelize_typescript_1.Table)({ tableName: 'Order' })
 ], Order);

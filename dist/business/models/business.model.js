@@ -16,10 +16,11 @@ const work_time_model_1 = require("../../work_time/models/work_time.model");
 const big_category_model_1 = require("../../big_category/models/big_category.model");
 const small_category_model_1 = require("../../small_category/models/small_category.model");
 const commentary_model_1 = require("../../commentary/models/commentary.model");
-const owner_model_1 = require("../../owner/models/owner.model");
 const order_model_1 = require("../../order/models/order.model");
 const star_model_1 = require("../../stars/models/star.model");
 const product_or_service_model_1 = require("../../product_or_service/models/product_or_service.model");
+const user_model_1 = require("../../users/models/user.model");
+const business_image_model_1 = require("../../business_images/model/business_image.model");
 let Business = class Business extends sequelize_typescript_1.Model {
 };
 exports.Business = Business;
@@ -126,6 +127,16 @@ __decorate([
     __metadata("design:type", String)
 ], Business.prototype, "description", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        example: 'Extra information about the business',
+        description: 'There is wi-fi, free shipping and international shipping services available for business customers.....',
+    }),
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.STRING,
+    }),
+    __metadata("design:type", String)
+], Business.prototype, "extra", void 0);
+__decorate([
     (0, swagger_1.ApiProperty)({ example: 1, description: 'Business reviews' }),
     (0, sequelize_typescript_1.Column)({
         type: sequelize_typescript_1.DataType.INTEGER,
@@ -142,23 +153,16 @@ __decorate([
     __metadata("design:type", Number)
 ], Business.prototype, "likes", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 'image1.jpg', description: "Business's image" }),
-    (0, sequelize_typescript_1.Column)({
-        type: sequelize_typescript_1.DataType.STRING,
-    }),
-    __metadata("design:type", String)
-], Business.prototype, "image", void 0);
-__decorate([
     (0, swagger_1.ApiProperty)({ example: 1, description: 'Business owner ID' }),
-    (0, sequelize_typescript_1.ForeignKey)(() => owner_model_1.Owner),
+    (0, sequelize_typescript_1.ForeignKey)(() => user_model_1.User),
     (0, sequelize_typescript_1.Column)({
         type: sequelize_typescript_1.DataType.INTEGER,
     }),
     __metadata("design:type", Number)
 ], Business.prototype, "owner_id", void 0);
 __decorate([
-    (0, sequelize_typescript_1.BelongsTo)(() => owner_model_1.Owner),
-    __metadata("design:type", owner_model_1.Owner)
+    (0, sequelize_typescript_1.BelongsTo)(() => user_model_1.User),
+    __metadata("design:type", user_model_1.User)
 ], Business.prototype, "owner", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ example: true, description: 'Business is active' }),
@@ -192,17 +196,17 @@ __decorate([
     __metadata("design:type", String)
 ], Business.prototype, "social_media", void 0);
 __decorate([
-    (0, sequelize_typescript_1.HasMany)(() => order_model_1.Order),
-    __metadata("design:type", Array)
+    (0, sequelize_typescript_1.HasOne)(() => order_model_1.Order),
+    __metadata("design:type", order_model_1.Order)
 ], Business.prototype, "order", void 0);
 __decorate([
     (0, sequelize_typescript_1.HasMany)(() => commentary_model_1.Commentary),
     __metadata("design:type", Array)
 ], Business.prototype, "commentary", void 0);
 __decorate([
-    (0, sequelize_typescript_1.HasMany)(() => star_model_1.Star),
+    (0, sequelize_typescript_1.HasMany)(() => star_model_1.Stars),
     __metadata("design:type", Array)
-], Business.prototype, "star", void 0);
+], Business.prototype, "stars", void 0);
 __decorate([
     (0, sequelize_typescript_1.HasMany)(() => work_time_model_1.WorkTime),
     __metadata("design:type", Array)
@@ -211,6 +215,10 @@ __decorate([
     (0, sequelize_typescript_1.HasMany)(() => product_or_service_model_1.ProductOrService),
     __metadata("design:type", Array)
 ], Business.prototype, "product_or_service", void 0);
+__decorate([
+    (0, sequelize_typescript_1.HasMany)(() => business_image_model_1.BusinessImage),
+    __metadata("design:type", Array)
+], Business.prototype, "business_image", void 0);
 exports.Business = Business = __decorate([
     (0, sequelize_typescript_1.Table)({ tableName: 'Business' })
 ], Business);

@@ -34,6 +34,13 @@ __decorate([
     __metadata("design:type", String)
 ], Commentary.prototype, "comment", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({ example: 1, description: 'Commentary likes' }),
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.INTEGER,
+    }),
+    __metadata("design:type", Number)
+], Commentary.prototype, "commentary_likes", void 0);
+__decorate([
     (0, swagger_1.ApiProperty)({ example: 1, description: 'Client ID' }),
     (0, sequelize_typescript_1.ForeignKey)(() => user_model_1.User),
     (0, sequelize_typescript_1.Column)({

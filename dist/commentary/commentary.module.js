@@ -13,12 +13,13 @@ const commentary_controller_1 = require("./commentary.controller");
 const sequelize_1 = require("@nestjs/sequelize");
 const commentary_model_1 = require("./models/commentary.model");
 const jwt_1 = require("@nestjs/jwt");
+const business_module_1 = require("../business/business.module");
 let CommentaryModule = class CommentaryModule {
 };
 exports.CommentaryModule = CommentaryModule;
 exports.CommentaryModule = CommentaryModule = __decorate([
     (0, common_1.Module)({
-        imports: [sequelize_1.SequelizeModule.forFeature([commentary_model_1.Commentary]), jwt_1.JwtModule],
+        imports: [sequelize_1.SequelizeModule.forFeature([commentary_model_1.Commentary]), jwt_1.JwtModule, business_module_1.BusinessModule],
         controllers: [commentary_controller_1.CommentaryController],
         providers: [commentary_service_1.CommentaryService, jwt_1.JwtService],
     })

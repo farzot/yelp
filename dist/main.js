@@ -19,7 +19,6 @@ async function start() {
             .setVersion('1.0')
             .addTag(`
           NodeJS, Validation, Postgres, JWT, SMS, Mailer, Swagger, Sequelizer, NestJS
-      
       `)
             .build();
         const document = swagger_1.SwaggerModule.createDocument(app, config);

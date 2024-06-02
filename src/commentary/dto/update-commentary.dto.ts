@@ -15,4 +15,5 @@ export class UpdateCommentaryDto extends PartialType(CreateCommentaryDto) {
   @IsOptional()
   @IsNotEmpty()
   business_id: number;
+  commentary_likes: number;
 }

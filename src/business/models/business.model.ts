@@ -1,13 +1,14 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from "sequelize-typescript";
+import { BelongsTo, Column, DataType, ForeignKey, HasMany, HasOne, Model, Table } from "sequelize-typescript";
 import { WorkTime } from "../../work_time/models/work_time.model";
 import { BigCategory } from "../../big_category/models/big_category.model";
 import { SmallCategory } from "../../small_category/models/small_category.model";
 import { Commentary } from "../../commentary/models/commentary.model";
-import { Owner } from "../../owner/models/owner.model";
 import { Order } from "../../order/models/order.model";
-import { Star } from "../../stars/models/star.model";
+import { Stars } from '../../stars/models/star.model';
 import { ProductOrService } from "../../product_or_service/models/product_or_service.model";
+import { User } from "../../users/models/user.model";
+import { BusinessImage } from "../../business_images/model/business_image.model";
 
 interface IBusinessCreationAttr {
   name: string;
@@ -21,9 +22,9 @@ interface IBusinessCreationAttr {
   small_category_id: number;
   average_star: number;
   description: string;
+  extra: string;
   reviews: number;
   likes: number;
-  image: string;
   owner_id: number;
   is_active: boolean;
   is_yelp_guaranteed: boolean;
@@ -120,6 +121,16 @@ export class Business extends Model<Business, IBusinessCreationAttr> {
   })
   description: string;
 
+  @ApiProperty({
+    example: 'Extra information about the business',
+    description:
+      'There is wi-fi, free shipping and international shipping services available for business customers.....',
+  })
+  @Column({
+    type: DataType.STRING,
+  })
+  extra: string;
+
   @ApiProperty({ example: 1, description: 'Business reviews' })
   @Column({
     type: DataType.INTEGER,
@@ -134,20 +145,16 @@ export class Business extends Model<Business, IBusinessCreationAttr> {
   })
   likes: number;
 
-  @ApiProperty({ example: 'image1.jpg', description: "Business's image" })
-  @Column({
-    type: DataType.STRING,
-  })
-  image: string;
+ 
 
   @ApiProperty({ example: 1, description: 'Business owner ID' })
-  @ForeignKey(() => Owner)
+  @ForeignKey(() => User)
   @Column({
     type: DataType.INTEGER,
   })
   owner_id: number;
-  @BelongsTo(() => Owner)
-  owner: Owner;
+  @BelongsTo(() => User)
+  owner: User;
 
   @ApiProperty({ example: true, description: 'Business is active' })
   @Column({
@@ -176,18 +183,21 @@ export class Business extends Model<Business, IBusinessCreationAttr> {
   })
   social_media: string;
 
-  @HasMany(() => Order)
-  order: Order[];
+  @HasOne(() => Order)
+  order: Order;
 
   @HasMany(() => Commentary)
   commentary: Commentary[];
 
-  @HasMany(() => Star)
-  star: Star[];
+  @HasMany(() => Stars)
+  stars: Stars[];
 
   @HasMany(() => WorkTime)
   workTime: WorkTime[];
 
   @HasMany(() => ProductOrService)
   product_or_service: ProductOrService[];
+
+  @HasMany(() => BusinessImage)
+  business_image: BusinessImage[];
 }

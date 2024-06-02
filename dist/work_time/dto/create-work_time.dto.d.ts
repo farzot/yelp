@@ -1,6 +1,6 @@
 export declare class CreateWorkTimeDto {
     Day: string;
-    open_hour: string;
-    close_hour: string;
+    open_time: string;
+    close_time: string;
     business_id: number;
 }

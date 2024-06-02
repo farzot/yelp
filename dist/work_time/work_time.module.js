@@ -11,8 +11,8 @@ const common_1 = require("@nestjs/common");
 const work_time_service_1 = require("./work_time.service");
 const work_time_controller_1 = require("./work_time.controller");
 const sequelize_1 = require("@nestjs/sequelize");
-const work_time_model_1 = require("./models/work_time.model");
 const jwt_1 = require("@nestjs/jwt");
+const work_time_model_1 = require("./models/work_time.model");
 let WorkTimeModule = class WorkTimeModule {
 };
 exports.WorkTimeModule = WorkTimeModule;

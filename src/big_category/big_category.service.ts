@@ -60,4 +60,13 @@ export class BigCategoryService {
       return error.message;
     }
   }
+  async findBigCategoryByName(name: string): Promise<BigCategory>{
+    try {
+      return await this.categoryRepo.findOne({
+        where: { name: name },
+      });
+    } catch (error) {
+      throw error.message;
+    }
+  }
 }

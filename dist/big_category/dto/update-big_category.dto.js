@@ -18,8 +18,8 @@ class UpdateBigCategoryDto extends (0, swagger_1.PartialType)(create_big_categor
 exports.UpdateBigCategoryDto = UpdateBigCategoryDto;
 __decorate([
     (0, swagger_1.ApiProperty)({
-        example: 'BigCategory name',
-        description: 'BigCategory description',
+        example: 'Restaurants',
+        description: 'BigCategory name should be here',
     }),
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsString)(),
@@ -28,7 +28,7 @@ __decorate([
 ], UpdateBigCategoryDto.prototype, "name", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
-        example: 'BigCategory description',
+        example: 'You can find resources here',
         description: 'BigCategory description',
     }),
     (0, class_validator_1.IsOptional)(),

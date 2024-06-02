@@ -7,6 +7,7 @@ interface ICommentaryCreationAttr{
     comment: string;
     client_id: number;
     business_id: number;
+    commentary_likes:number;
 }
 
 @Table({ tableName: 'Commentary' })
@@ -24,6 +25,13 @@ export class Commentary extends Model<Commentary, ICommentaryCreationAttr> {
     type: DataType.STRING,
   })
   comment: string;
+
+  @ApiProperty({ example: 1, description: 'Commentary likes' })
+  @Column({
+    type: DataType.INTEGER,
+  })
+  commentary_likes: number;
+
 
   @ApiProperty({ example: 1, description: 'Client ID' })
   @ForeignKey(() => User)

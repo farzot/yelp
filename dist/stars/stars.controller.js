@@ -68,7 +68,7 @@ let StarsController = class StarsController {
 exports.StarsController = StarsController;
 __decorate([
     (0, swagger_1.ApiOperation)({ summary: 'Create a new star' }),
-    (0, swagger_1.ApiResponse)({ status: 200, type: star_model_1.Star }),
+    (0, swagger_1.ApiResponse)({ status: 200, type: star_model_1.Stars }),
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -77,7 +77,7 @@ __decorate([
 ], StarsController.prototype, "createStar", null);
 __decorate([
     (0, swagger_1.ApiOperation)({ summary: 'Get all star' }),
-    (0, swagger_1.ApiResponse)({ status: 200, type: [star_model_1.Star] }),
+    (0, swagger_1.ApiResponse)({ status: 200, type: [star_model_1.Stars] }),
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
@@ -85,7 +85,7 @@ __decorate([
 ], StarsController.prototype, "findAllStar", null);
 __decorate([
     (0, swagger_1.ApiOperation)({ summary: 'Get star by id' }),
-    (0, swagger_1.ApiResponse)({ status: 200, type: star_model_1.Star }),
+    (0, swagger_1.ApiResponse)({ status: 200, type: star_model_1.Stars }),
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
@@ -95,7 +95,7 @@ __decorate([
 __decorate([
     (0, common_1.UseGuards)(admin_auth_guard_1.JwtAdminGuard),
     (0, swagger_1.ApiOperation)({ summary: 'Update star by id' }),
-    (0, swagger_1.ApiResponse)({ status: 200, type: star_model_1.Star }),
+    (0, swagger_1.ApiResponse)({ status: 200, type: star_model_1.Stars }),
     (0, common_1.Patch)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),

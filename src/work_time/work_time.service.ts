@@ -58,4 +58,17 @@ export class WorkTimeService {
       throw error.message;
     }
   }
+
+  async findOneByBusinesID(id: number) {
+    try {
+      return await this.workTimeRepo.findOne({
+        where: { business_id: id },
+      });
+    } catch (error) {
+      throw error.message;
+    }
+  }
+
+
+
 }

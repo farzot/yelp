@@ -38,14 +38,14 @@ __decorate([
         type: sequelize_typescript_1.DataType.STRING,
     }),
     __metadata("design:type", String)
-], WorkTime.prototype, "open_hour", void 0);
+], WorkTime.prototype, "open_time", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ example: '18:00', description: 'Close hour' }),
     (0, sequelize_typescript_1.Column)({
         type: sequelize_typescript_1.DataType.STRING,
     }),
     __metadata("design:type", String)
-], WorkTime.prototype, "close_hour", void 0);
+], WorkTime.prototype, "close_time", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ example: 1, description: 'Business ID' }),
     (0, sequelize_typescript_1.ForeignKey)(() => business_model_1.Business),

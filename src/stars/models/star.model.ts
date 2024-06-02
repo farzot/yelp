@@ -3,15 +3,15 @@ import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from "sequelize
 import { Business } from "../../business/models/business.model";
 import { User } from "../../users/models/user.model";
 
-interface IStarCreationAttr{
+interface IStarsCreationAttr{
     client_id: number;
     business_id: number;
     star: number;
 }
 
-@Table({ tableName: 'Star' })
-export class Star extends Model<Star, IStarCreationAttr> {
-  @ApiProperty({ example: 1, description: 'Star ID' })
+@Table({ tableName: 'Stars' })
+export class Stars extends Model<Stars, IStarsCreationAttr> {
+  @ApiProperty({ example: 1, description: 'Stars ID' })
   @Column({
     primaryKey: true,
     autoIncrement: true,

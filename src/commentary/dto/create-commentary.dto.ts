@@ -10,4 +10,5 @@ export class CreateCommentaryDto {
   @IsNumber()
   @IsNotEmpty()
   business_id: number;
+  commentary_likes: number;
 }

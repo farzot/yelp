@@ -7,6 +7,12 @@ export declare class ProductOrServiceService {
     create(createProductOrServiceDto: CreateProductOrServiceDto): Promise<ProductOrService>;
     findAll(): Promise<ProductOrService[]>;
     findOne(id: number): Promise<ProductOrService>;
+    findProductByName(name: any): Promise<ProductOrService>;
     update(id: number, updateProductOrServiceDto: UpdateProductOrServiceDto): Promise<[affectedCount: number]>;
     remove(id: number): Promise<number>;
+    findProductByAmountSelling(): Promise<ProductOrService[]>;
+    findProductByPrice(): Promise<ProductOrService[]>;
+    findProductByRatingAndPrice(): Promise<ProductOrService[]>;
+    findProductByRatingAndAmountSelling(): Promise<ProductOrService[]>;
+    addQuantityOfSelling(id: any, amount: any): Promise<ProductOrService>;
 }

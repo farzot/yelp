@@ -10,4 +10,5 @@ export declare class CommentaryController {
     findOneCommentary(id: string): Promise<Commentary>;
     updateCommentary(id: string, updateCommentaryDto: UpdateCommentaryDto): Promise<[affectedCount: number, affectedRows: Commentary[]]>;
     removeCommentary(id: string): Promise<number>;
+    increaseLike(id: string): Promise<Commentary>;
 }

@@ -19,7 +19,6 @@ const create_commentary_dto_1 = require("./dto/create-commentary.dto");
 const update_commentary_dto_1 = require("./dto/update-commentary.dto");
 const swagger_1 = require("@nestjs/swagger");
 const commentary_model_1 = require("./models/commentary.model");
-const admin_auth_guard_1 = require("../common/guards/admin-auth.guard");
 let CommentaryController = class CommentaryController {
     constructor(commentaryService) {
         this.commentaryService = commentaryService;
@@ -64,10 +63,17 @@ let CommentaryController = class CommentaryController {
             throw error.message;
         }
     }
+    async increaseLike(id) {
+        try {
+            return this.commentaryService.increaseLike(+id);
+        }
+        catch (error) {
+            throw error.message;
+        }
+    }
 };
 exports.CommentaryController = CommentaryController;
 __decorate([
-    (0, common_1.UseGuards)(admin_auth_guard_1.JwtAdminGuard),
     (0, swagger_1.ApiOperation)({ summary: 'Create a new comment' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: commentary_model_1.Commentary }),
     (0, common_1.Post)(),
@@ -85,7 +91,6 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], CommentaryController.prototype, "findAllCommentary", null);
 __decorate([
-    (0, common_1.UseGuards)(admin_auth_guard_1.JwtAdminGuard),
     (0, swagger_1.ApiOperation)({ summary: 'Get comment by id' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: commentary_model_1.Commentary }),
     (0, common_1.Get)(':id'),
@@ -95,7 +100,6 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], CommentaryController.prototype, "findOneCommentary", null);
 __decorate([
-    (0, common_1.UseGuards)(admin_auth_guard_1.JwtAdminGuard),
     (0, swagger_1.ApiOperation)({ summary: 'Update comment by id' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: commentary_model_1.Commentary }),
     (0, common_1.Patch)(':id'),
@@ -106,7 +110,6 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], CommentaryController.prototype, "updateCommentary", null);
 __decorate([
-    (0, common_1.UseGuards)(admin_auth_guard_1.JwtAdminGuard),
     (0, swagger_1.ApiOperation)({ summary: 'Delete comment by id' }),
     (0, swagger_1.ApiResponse)({ status: 200, type: Number }),
     (0, common_1.Delete)(':id'),
@@ -115,6 +118,15 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], CommentaryController.prototype, "removeCommentary", null);
+__decorate([
+    (0, swagger_1.ApiOperation)({ summary: 'Increase like by id' }),
+    (0, swagger_1.ApiResponse)({ status: 200, type: Number }),
+    (0, common_1.Patch)(':id/like'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], CommentaryController.prototype, "increaseLike", null);
 exports.CommentaryController = CommentaryController = __decorate([
     (0, swagger_1.ApiTags)('Commentary'),
     (0, common_1.Controller)('commentary'),

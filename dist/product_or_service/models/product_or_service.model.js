@@ -13,7 +13,8 @@ exports.ProductOrService = void 0;
 const swagger_1 = require("@nestjs/swagger");
 const sequelize_typescript_1 = require("sequelize-typescript");
 const business_model_1 = require("../../business/models/business.model");
-const order_detail_model_1 = require("../../order_detail/models/order_detail.model");
+const order_item_model_1 = require("../../order_items/model/order_item.model");
+const cart_item_model_1 = require("../../cart_items/model/cart_item.model");
 let ProductOrService = class ProductOrService extends sequelize_typescript_1.Model {
 };
 exports.ProductOrService = ProductOrService;
@@ -27,7 +28,10 @@ __decorate([
     __metadata("design:type", Number)
 ], ProductOrService.prototype, "id", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: 'Product_Service name', description: 'Product_Service name' }),
+    (0, swagger_1.ApiProperty)({
+        example: 'Product_Service name',
+        description: 'Product_Service name',
+    }),
     (0, sequelize_typescript_1.Column)({
         type: sequelize_typescript_1.DataType.STRING,
     }),
@@ -41,7 +45,10 @@ __decorate([
     __metadata("design:type", Number)
 ], ProductOrService.prototype, "price", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ example: true, description: 'Product_Service is_available_onlineOrders' }),
+    (0, swagger_1.ApiProperty)({
+        example: true,
+        description: 'Product_Service is_available_onlineOrders',
+    }),
     (0, sequelize_typescript_1.Column)({
         type: sequelize_typescript_1.DataType.BOOLEAN,
         defaultValue: false,
@@ -61,9 +68,33 @@ __decorate([
     __metadata("design:type", business_model_1.Business)
 ], ProductOrService.prototype, "business", void 0);
 __decorate([
-    (0, sequelize_typescript_1.HasMany)(() => order_detail_model_1.OrderDetail),
-    __metadata("design:type", Array)
-], ProductOrService.prototype, "order_detail", void 0);
+    (0, swagger_1.ApiProperty)({
+        example: 1,
+        description: 'Product_Service quantity_of_orders',
+    }),
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.INTEGER,
+    }),
+    __metadata("design:type", Number)
+], ProductOrService.prototype, "quantity_of_selling", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({
+        example: 'product.png',
+        description: 'Product_Service image',
+    }),
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.STRING,
+    }),
+    __metadata("design:type", String)
+], ProductOrService.prototype, "image", void 0);
+__decorate([
+    (0, sequelize_typescript_1.HasOne)(() => order_item_model_1.OrderItem),
+    __metadata("design:type", order_item_model_1.OrderItem)
+], ProductOrService.prototype, "orderItem", void 0);
+__decorate([
+    (0, sequelize_typescript_1.HasOne)(() => cart_item_model_1.CartItem),
+    __metadata("design:type", cart_item_model_1.CartItem)
+], ProductOrService.prototype, "cartItem", void 0);
 exports.ProductOrService = ProductOrService = __decorate([
     (0, sequelize_typescript_1.Table)({ tableName: 'product_or_service' })
 ], ProductOrService);

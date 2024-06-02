@@ -8,6 +8,8 @@ export declare class ProductOrServiceController {
     createProduct(createProductOrServiceDto: CreateProductOrServiceDto): Promise<ProductOrService>;
     findAllProduct(): Promise<ProductOrService[]>;
     findOneProduct(id: string): Promise<ProductOrService>;
+    findProductByName(name: string): Promise<ProductOrService>;
+    mostSelling(name: string): Promise<ProductOrService[]>;
     updateProduct(id: string, updateProductOrServiceDto: UpdateProductOrServiceDto): Promise<[affectedCount: number]>;
     removeProduct(id: string): Promise<number>;
 }

@@ -1,8 +1,9 @@
 import { Model } from 'sequelize-typescript';
 import { Order } from '../../order/models/order.model';
-import { Star } from '../../stars/models/star.model';
+import { Stars } from '../../stars/models/star.model';
 import { Commentary } from '../../commentary/models/commentary.model';
 import { Address } from '../../address/model/address.model';
+import { Cart } from '../../cart/model/cart.model';
 interface IClientCreationAttr {
     full_name: string;
     phone: string;
@@ -10,7 +11,7 @@ interface IClientCreationAttr {
     password: string;
     confirm_password: string;
     social_media: string;
-    card: string;
+    card_number: string;
     hashed_refresh_token: string;
     is_businessman: boolean;
     address_id: number;
@@ -25,7 +26,7 @@ export declare class User extends Model<User, IClientCreationAttr> {
     password: string;
     confirm_password: string;
     social_media: string;
-    card: string;
+    card_number: string;
     hashed_refresh_token: string;
     is_businessman: boolean;
     address_id: number;
@@ -34,6 +35,7 @@ export declare class User extends Model<User, IClientCreationAttr> {
     address: Address;
     orders: Order[];
     commentray: Commentary[];
-    star: Star[];
+    star: Stars[];
+    cart: Cart[];
 }
 export {};

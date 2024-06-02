@@ -1,12 +1,16 @@
 import { CreateStarDto } from './dto/create-star.dto';
 import { UpdateStarDto } from './dto/update-star.dto';
-import { Star } from './models/star.model';
+import { Stars } from './models/star.model';
+import { BusinessService } from '../business/business.service';
+import { Business } from '../business/models/business.model';
 export declare class StarsService {
     private readonly starRepo;
-    constructor(starRepo: typeof Star);
-    create(createStarDto: CreateStarDto): Promise<Star>;
-    findAll(): Promise<Star[]>;
-    findOne(id: number): Promise<Star>;
-    update(id: number, updateStarDto: UpdateStarDto): Promise<[affectedCount: number, affectedRows: Star[]]>;
+    private readonly businessService;
+    private readonly businessRepo;
+    constructor(starRepo: typeof Stars, businessService: BusinessService, businessRepo: typeof Business);
+    create(createStarDto: CreateStarDto): Promise<any>;
+    findAll(): Promise<Stars[]>;
+    findOne(id: number): Promise<Stars>;
+    update(id: number, updateStarDto: UpdateStarDto): Promise<[affectedCount: number, affectedRows: Stars[]]>;
     remove(id: number): Promise<number>;
 }

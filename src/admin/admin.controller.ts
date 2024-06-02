@@ -22,7 +22,7 @@ import { AdminGuard } from '../common/guards/self-admin.guard';
 import { JwtAdminGuard } from '../common/guards/admin-auth.guard';
 import { User } from '../users/models/user.model';
 
-ApiTags('Admin')
+@ApiTags('Admin')
 @Controller('admin')
 export class AdminController {
   constructor(private readonly adminService: AdminService) {}

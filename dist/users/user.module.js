@@ -14,6 +14,7 @@ const mail_module_1 = require("../mail/mail.module");
 const user_model_1 = require("./models/user.model");
 const users_service_1 = require("./users.service");
 const users_controller_1 = require("./users.controller");
+const business_module_1 = require("../business/business.module");
 let UsersModule = class UsersModule {
 };
 exports.UsersModule = UsersModule;
@@ -23,6 +24,7 @@ exports.UsersModule = UsersModule = __decorate([
             sequelize_1.SequelizeModule.forFeature([user_model_1.User]),
             jwt_1.JwtModule.register({}),
             mail_module_1.MailModule,
+            business_module_1.BusinessModule
         ],
         controllers: [users_controller_1.UsersController],
         providers: [users_service_1.UsersService],

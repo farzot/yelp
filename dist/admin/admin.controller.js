@@ -24,7 +24,6 @@ const swagger_1 = require("@nestjs/swagger");
 const self_admin_guard_1 = require("../common/guards/self-admin.guard");
 const admin_auth_guard_1 = require("../common/guards/admin-auth.guard");
 const user_model_1 = require("../users/models/user.model");
-(0, swagger_1.ApiTags)('Admin');
 let AdminController = class AdminController {
     constructor(adminService) {
         this.adminService = adminService;
@@ -147,6 +146,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], AdminController.prototype, "remove", null);
 exports.AdminController = AdminController = __decorate([
+    (0, swagger_1.ApiTags)('Admin'),
     (0, common_1.Controller)('admin'),
     __metadata("design:paramtypes", [admin_service_1.AdminService])
 ], AdminController);

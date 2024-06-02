@@ -3,7 +3,7 @@ import { StarsService } from './stars.service';
 import { CreateStarDto } from './dto/create-star.dto';
 import { UpdateStarDto } from './dto/update-star.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Star } from './models/star.model';
+import { Stars } from './models/star.model';
 import { JwtAdminGuard } from '../common/guards/admin-auth.guard';
 
 @ApiTags('Star')
@@ -12,7 +12,7 @@ export class StarsController {
   constructor(private readonly starsService: StarsService) {}
 
   @ApiOperation({ summary: 'Create a new star' })
-  @ApiResponse({ status: 200, type: Star })
+  @ApiResponse({ status: 200, type: Stars })
   @Post()
   async createStar(@Body() createStarDto: CreateStarDto) {
     try {
@@ -23,7 +23,7 @@ export class StarsController {
   }
 
   @ApiOperation({ summary: 'Get all star' })
-  @ApiResponse({ status: 200, type: [Star] })
+  @ApiResponse({ status: 200, type: [Stars] })
   @Get()
   async findAllStar() {
     try {
@@ -34,7 +34,7 @@ export class StarsController {
   }
 
   @ApiOperation({ summary: 'Get star by id' })
-  @ApiResponse({ status: 200, type: Star })
+  @ApiResponse({ status: 200, type: Stars })
   @Get(':id')
   async findOneStar(@Param('id') id: string) {
     try {
@@ -46,7 +46,7 @@ export class StarsController {
 
   @UseGuards(JwtAdminGuard)
   @ApiOperation({ summary: 'Update star by id' })
-  @ApiResponse({ status: 200, type: Star })
+  @ApiResponse({ status: 200, type: Stars })
   @Patch(':id')
   async updateStar(
     @Param('id') id: string,

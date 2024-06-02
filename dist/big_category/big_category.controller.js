@@ -48,6 +48,14 @@ let BigCategoryController = class BigCategoryController {
             return error.message;
         }
     }
+    async findBigCategoryByName(name) {
+        try {
+            return await this.bigCategoryService.findBigCategoryByName(name);
+        }
+        catch (error) {
+            return error.message;
+        }
+    }
     async updateBigCategory(id, updateBigCategoryDto) {
         try {
             return await this.bigCategoryService.update(+id, updateBigCategoryDto);
@@ -95,6 +103,15 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], BigCategoryController.prototype, "findOneBigCategory", null);
+__decorate([
+    (0, swagger_1.ApiOperation)({ summary: 'Get one Big Category by name' }),
+    (0, swagger_1.ApiResponse)({ status: 200, type: big_category_model_1.BigCategory }),
+    (0, common_1.Get)(':/name'),
+    __param(0, (0, common_1.Query)('name')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], BigCategoryController.prototype, "findBigCategoryByName", null);
 __decorate([
     (0, common_1.UseGuards)(admin_auth_guard_1.JwtAdminGuard),
     (0, swagger_1.ApiOperation)({ summary: 'Update a Big Category' }),

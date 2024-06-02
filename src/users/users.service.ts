@@ -2,7 +2,6 @@ import {
   BadRequestException,
   ForbiddenException,
   Injectable,
-  InternalServerErrorException,
   NotFoundException,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -17,7 +16,9 @@ import { MailService } from '../mail/mail.service';
 import { LoginUserDto } from './dto/login-user.dto';
 import { FindUserDto } from './dto/find-user.dto';
 import { Op } from 'sequelize';
-import { log } from 'console';
+import { BusinessService } from '../business/business.service';
+import { CreateBusinessDto } from '../business/dto/create-business.dto';
+import { Business } from '../business/models/business.model';
 
 @Injectable()
 export class UsersService {
@@ -26,6 +27,7 @@ export class UsersService {
     private readonly userRepo: typeof User,
     private readonly jwtService: JwtService,
     private readonly mailService: MailService,
+    private readonly businesService: BusinessService,
   ) {}
   async getTokens(user: User) {
     const payload = {
@@ -198,9 +200,6 @@ export class UsersService {
     if (!user) {
       throw new BadRequestException('User not found');
     }
-    // if (!user.is_active) {
-    //   throw new BadRequestException('User is not activated');
-    // }
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       throw new BadRequestException('Passwords do not match');
@@ -293,4 +292,16 @@ export class UsersService {
     };
     return response;
   }
+
+  async addBusiness(userId: number, createBusinessDto: CreateBusinessDto, res: Response): Promise<Business> {
+  {
+    try {
+      const newBusiness =  await this.businesService.create(createBusinessDto);
+      newBusiness.owner_id = userId;
+      return newBusiness
+    } catch (error) {
+      throw  error.message;
+    }
+  }
+}
 }

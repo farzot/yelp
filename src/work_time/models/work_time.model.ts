@@ -4,8 +4,8 @@ import { Business } from '../../business/models/business.model';
 
 interface IWorkTimeCreationAttr {
   Day: string;
-  open_hour: string;
-  close_hour: string;
+  open_time: string;
+  close_time: string;
   business_id: number;
 }
 
@@ -27,12 +27,12 @@ export class WorkTime extends Model<WorkTime, IWorkTimeCreationAttr> {
   @Column({
     type: DataType.STRING,
   })
-  open_hour: string;
+  open_time: string;
   @ApiProperty({ example: '18:00', description: 'Close hour' })
   @Column({
     type: DataType.STRING,
   })
-  close_hour: string;
+  close_time: string;
   
   @ApiProperty({ example: 1, description: 'Business ID' })
   @ForeignKey(() => Business)

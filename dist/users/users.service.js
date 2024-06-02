@@ -21,11 +21,13 @@ const bcrypt = require("bcrypt");
 const uuid_1 = require("uuid");
 const mail_service_1 = require("../mail/mail.service");
 const sequelize_2 = require("sequelize");
+const business_service_1 = require("../business/business.service");
 let UsersService = class UsersService {
-    constructor(userRepo, jwtService, mailService) {
+    constructor(userRepo, jwtService, mailService, businesService) {
         this.userRepo = userRepo;
         this.jwtService = jwtService;
         this.mailService = mailService;
+        this.businesService = businesService;
     }
     async getTokens(user) {
         const payload = {
@@ -254,12 +256,25 @@ let UsersService = class UsersService {
         };
         return response;
     }
+    async addBusiness(userId, createBusinessDto, res) {
+        {
+            try {
+                const newBusiness = await this.businesService.create(createBusinessDto);
+                newBusiness.owner_id = userId;
+                return newBusiness;
+            }
+            catch (error) {
+                throw error.message;
+            }
+        }
+    }
 };
 exports.UsersService = UsersService;
 exports.UsersService = UsersService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, sequelize_1.InjectModel)(user_model_1.User)),
     __metadata("design:paramtypes", [Object, jwt_1.JwtService,
-        mail_service_1.MailService])
+        mail_service_1.MailService,
+        business_service_1.BusinessService])
 ], UsersService);
 //# sourceMappingURL=users.service.js.map

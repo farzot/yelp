@@ -5,6 +5,8 @@ import { Response } from 'express';
 import { User } from './models/user.model';
 import { LoginUserDto } from './dto/login-user.dto';
 import { FindUserDto } from './dto/find-user.dto';
+import { Business } from '../business/models/business.model';
+import { CreateBusinessDto } from '../business/dto/create-business.dto';
 export declare class UsersController {
     private readonly usersService;
     constructor(usersService: UsersService);
@@ -45,4 +47,5 @@ export declare class UsersController {
     findUser(finduserDto: FindUserDto): Promise<User[]>;
     update(id: string, updateUserDto: UpdateUserDto): Promise<User>;
     remove(id: string): Promise<number>;
+    addBusiness(createBusinessDto: CreateBusinessDto, res: Response, id: string): Promise<Business>;
 }

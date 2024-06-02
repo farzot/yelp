@@ -16,6 +16,7 @@ const order_model_1 = require("../../order/models/order.model");
 const star_model_1 = require("../../stars/models/star.model");
 const commentary_model_1 = require("../../commentary/models/commentary.model");
 const address_model_1 = require("../../address/model/address.model");
+const cart_model_1 = require("../../cart/model/cart.model");
 let User = class User extends sequelize_typescript_1.Model {
 };
 exports.User = User;
@@ -93,7 +94,7 @@ __decorate([
         type: sequelize_typescript_1.DataType.STRING,
     }),
     __metadata("design:type", String)
-], User.prototype, "card", void 0);
+], User.prototype, "card_number", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({
         example: '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
@@ -154,9 +155,13 @@ __decorate([
     __metadata("design:type", Array)
 ], User.prototype, "commentray", void 0);
 __decorate([
-    (0, sequelize_typescript_1.HasMany)(() => star_model_1.Star),
+    (0, sequelize_typescript_1.HasMany)(() => star_model_1.Stars),
     __metadata("design:type", Array)
 ], User.prototype, "star", void 0);
+__decorate([
+    (0, sequelize_typescript_1.HasMany)(() => cart_model_1.Cart),
+    __metadata("design:type", Array)
+], User.prototype, "cart", void 0);
 exports.User = User = __decorate([
     (0, sequelize_typescript_1.Table)({ tableName: 'Client' })
 ], User);

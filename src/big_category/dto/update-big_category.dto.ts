@@ -4,8 +4,8 @@ import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class UpdateBigCategoryDto extends PartialType(CreateBigCategoryDto) {
   @ApiProperty({
-    example: 'BigCategory name',
-    description: 'BigCategory description',
+    example: 'Restaurants',
+    description: 'BigCategory name should be here',
   })
   @IsOptional()
   @IsString()
@@ -13,7 +13,7 @@ export class UpdateBigCategoryDto extends PartialType(CreateBigCategoryDto) {
   name: string;
 
   @ApiProperty({
-    example: 'BigCategory description',
+    example: 'You can find resources here',
     description: 'BigCategory description',
   })
   @IsOptional()

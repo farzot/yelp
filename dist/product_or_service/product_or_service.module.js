@@ -21,6 +21,7 @@ exports.ProductOrServiceModule = ProductOrServiceModule = __decorate([
         imports: [sequelize_1.SequelizeModule.forFeature([product_or_service_model_1.ProductOrService]), jwt_1.JwtModule],
         controllers: [product_or_service_controller_1.ProductOrServiceController],
         providers: [product_or_service_service_1.ProductOrServiceService, jwt_1.JwtService],
+        exports: [product_or_service_service_1.ProductOrServiceService],
     })
 ], ProductOrServiceModule);
 //# sourceMappingURL=product_or_service.module.js.map

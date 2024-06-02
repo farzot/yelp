@@ -16,13 +16,29 @@ exports.StarsService = void 0;
 const common_1 = require("@nestjs/common");
 const sequelize_1 = require("@nestjs/sequelize");
 const star_model_1 = require("./models/star.model");
+const business_service_1 = require("../business/business.service");
+const business_model_1 = require("../business/models/business.model");
 let StarsService = class StarsService {
-    constructor(starRepo) {
+    constructor(starRepo, businessService, businessRepo) {
         this.starRepo = starRepo;
+        this.businessService = businessService;
+        this.businessRepo = businessRepo;
     }
     async create(createStarDto) {
         try {
-            return await this.starRepo.create(createStarDto);
+            const stars = await this.starRepo.create(createStarDto);
+            const business = await this.businessService.findOne(createStarDto.business_id);
+            let sum = 0;
+            for (let i = 0; i < business.stars.length; i++) {
+                sum = sum + business.stars[i].star;
+            }
+            console.log('Summa --> ', sum);
+            console.log('Stars.length --> ', business.stars.length);
+            const avg = Math.round(sum / business.stars.length);
+            console.log('sum / business.stars.length --> ', sum / business.stars.length);
+            await this.businessRepo.update({ average_star: avg }, { where: { id: business.id } });
+            await business.save();
+            return business.stars;
         }
         catch (error) {
             throw error.message;
@@ -30,7 +46,7 @@ let StarsService = class StarsService {
     }
     async findAll() {
         try {
-            return await this.starRepo.findAll();
+            return await this.starRepo.findAll({ include: { all: true } });
         }
         catch (error) {
             throw error.message;
@@ -49,7 +65,10 @@ let StarsService = class StarsService {
             const check = await this.findOne(id);
             if (!check)
                 throw new common_1.NotFoundException(`Star ${id} not found`);
-            return await this.starRepo.update(updateStarDto, { where: { id: id }, returning: true });
+            return await this.starRepo.update(updateStarDto, {
+                where: { id: id },
+                returning: true,
+            });
         }
         catch (error) {
             throw error.message;
@@ -70,7 +89,8 @@ let StarsService = class StarsService {
 exports.StarsService = StarsService;
 exports.StarsService = StarsService = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, sequelize_1.InjectModel)(star_model_1.Star)),
-    __metadata("design:paramtypes", [Object])
+    __param(0, (0, sequelize_1.InjectModel)(star_model_1.Stars)),
+    __param(2, (0, sequelize_1.InjectModel)(business_model_1.Business)),
+    __metadata("design:paramtypes", [Object, business_service_1.BusinessService, Object])
 ], StarsService);
 //# sourceMappingURL=stars.service.js.map

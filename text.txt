@@ -1,0 +1,160 @@
+Certainly! Below are the service implementations for the `Order`, `OrderItem`, `Cart`, and `CartItem` models. These services include basic CRUD operations and specific logic for managing the transition from a cart to an order.
+
+### Cart Service
+
+#### Cart Service (`cart.service.ts`)
+
+```typescript
+import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/sequelize';
+import { Cart } from './cart.model';
+import { CreateCartDto } from './dto/create-cart.dto';
+import { UpdateCartDto } from './dto/update-cart.dto';
+
+@Injectable()
+export class CartService {
+  constructor(
+    @InjectModel(Cart)
+    private readonly cartModel: typeof Cart,
+  ) {}
+
+  async create(createCartDto: CreateCartDto): Promise<Cart> {
+    return this.cartModel.create(createCartDto);
+  }
+
+  async findAll(): Promise<Cart[]> {
+    return this.cartModel.findAll();
+  }
+
+  async findOne(id: number): Promise<Cart> {
+    return this.cartModel.findByPk(id);
+  }
+
+  async update(id: number, updateCartDto: UpdateCartDto): Promise<Cart> {
+    const cart = await this.findOne(id);
+    return cart.update(updateCartDto);
+  }
+
+  async remove(id: number): Promise<void> {
+    const cart = await this.findOne(id);
+    await cart.destroy();
+  }
+}
+```
+
+### Cart Item Service
+
+#### Cart Item Service (`cart-item.service.ts`)
+
+```typescript
+import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/sequelize';
+import { CartItem } from './cart-item.model';
+import { CreateCartItemDto } from './dto/create-cart-item.dto';
+import { UpdateCartItemDto } from './dto/update-cart-item.dto';
+
+@Injectable()
+export class CartItemService {
+  constructor(
+    @InjectModel(CartItem)
+    private readonly cartItemModel: typeof CartItem,
+  ) {}
+
+  async create(createCartItemDto: CreateCartItemDto): Promise<CartItem> {
+    return this.cartItemModel.create(createCartItemDto);
+  }
+
+  async findAll(): Promise<CartItem[]> {
+    return this.cartItemModel.findAll();
+  }
+
+  async findOne(id: number): Promise<CartItem> {
+    return this.cartItemModel.findByPk(id);
+  }
+
+  async update(id: number, updateCartItemDto: UpdateCartItemDto): Promise<CartItem> {
+    const cartItem = await this.findOne(id);
+    return cartItem.update(updateCartItemDto);
+  }
+
+  async remove(id: number): Promise<void> {
+    const cartItem = await this.findOne(id);
+    await cartItem.destroy();
+  }
+}
+```
+
+### Order Service
+
+#### Order Service (`order.service.ts`)
+
+```typescript
+import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/sequelize';
+import { Order } from './order.model';
+import { CreateOrderDto } from './dto/create-order.dto';
+import { Cart } from '../carts/cart.model';
+import { OrderItem } from '../order-items/order-item.model';
+import { CreateOrderItemDto } from '../order-items/dto/create-order-item.dto';
+
+@Injectable()
+export class OrderService {
+  constructor(
+    @InjectModel(Order)
+    private readonly orderModel: typeof Order,
+    @InjectModel(Cart)
+    private readonly cartModel: typeof Cart,
+    @InjectModel(OrderItem)
+    private readonly orderItemModel: typeof OrderItem,
+  ) {}
+
+  async createOrder(createOrderDto: CreateOrderDto): Promise<Order> {
+    // Create the order
+    const order = await this.orderModel.create({
+      userId: createOrderDto.userId,
+      cartId: createOrderDto.cartId,
+    });
+
+    // Create order items from cart items
+    const cart = await this.cartModel.findByPk(createOrderDto.cartId, { include: ['cartItems'] });
+    if (cart) {
+      const orderItems = cart.cartItems.map(cartItem => ({
+        orderId: order.id,
+        productId: cartItem.productId,
+        quantity: cartItem.quantity,
+      }));
+
+      await this.orderItemModel.bulkCreate(orderItems);
+    }
+
+    // Update the cart status to 'converted'
+    await this.cartModel.update({ status: 'converted' }, { where: { id: createOrderDto.cartId } });
+
+    return order;
+  }
+
+  async findAll(): Promise<Order[]> {
+    return this.orderModel.findAll({ include: ['orderItems'] });
+  }
+
+  async findOne(id: number): Promise<Order> {
+    return this.orderModel.findByPk(id, { include: ['orderItems'] });
+  }
+
+  async update(id: number, updateOrderDto: any): Promise<Order> {
+    const order = await this.findOne(id);
+    return order.update(updateOrderDto);
+  }
+
+  async remove(id: number): Promise<void> {
+    const order = await this.findOne(id);
+    await order.destroy();
+  }
+}
+```
+
+
+
+
+
+

@@ -6,11 +6,15 @@ import { Response } from 'express';
 import { MailService } from '../mail/mail.service';
 import { LoginUserDto } from './dto/login-user.dto';
 import { FindUserDto } from './dto/find-user.dto';
+import { BusinessService } from '../business/business.service';
+import { CreateBusinessDto } from '../business/dto/create-business.dto';
+import { Business } from '../business/models/business.model';
 export declare class UsersService {
     private readonly userRepo;
     private readonly jwtService;
     private readonly mailService;
-    constructor(userRepo: typeof User, jwtService: JwtService, mailService: MailService);
+    private readonly businesService;
+    constructor(userRepo: typeof User, jwtService: JwtService, mailService: MailService, businesService: BusinessService);
     getTokens(user: User): Promise<{
         accessToken: string;
         refreshToken: string;
@@ -53,4 +57,5 @@ export declare class UsersService {
             refreshToken: string;
         };
     }>;
+    addBusiness(userId: number, createBusinessDto: CreateBusinessDto, res: Response): Promise<Business>;
 }

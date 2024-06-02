@@ -71,6 +71,16 @@ let WorkTimeService = class WorkTimeService {
             throw error.message;
         }
     }
+    async findOneByBusinesID(id) {
+        try {
+            return await this.workTimeRepo.findOne({
+                where: { business_id: id },
+            });
+        }
+        catch (error) {
+            throw error.message;
+        }
+    }
 };
 exports.WorkTimeService = WorkTimeService;
 exports.WorkTimeService = WorkTimeService = __decorate([
